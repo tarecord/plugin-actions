@@ -25,6 +25,10 @@ jobs:
           path: ${{ env.BUILD_FOLDER }}
           ref: ${{ github.ref }}
 
+      - name: Configure WP-CLI dist-archive-command
+        run: |
+          wp package install wp-cli/dist-archive-command
+
       - name: Build Plugin Zip
         run: |
           wp dist-archive ${{ env.BUILD_FOLDER }}
