@@ -2,7 +2,7 @@ name: Zip Plugin
 
 on:
   release:
-    ['published']
+    types: [published]
 
 jobs:
   build:
