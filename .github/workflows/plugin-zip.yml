@@ -1,0 +1,38 @@
+name: Zip Plugin
+
+on:
+  release:
+    ['published']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_FOLDER: build
+
+    steps:
+
+      - name: Set Up PHP with WP-CLI
+        uses: shivammathur/setup-php@2.22.0
+        with:
+          tools: wp
+          php-version: 8.0
+
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.BUILD_FOLDER }}
+          ref: ${{ github.ref }}
+
+      - name: Build Plugin Zip
+        run: |
+          wp dist-archive ${{ env.BUILD_FOLDER }}
+
+      - name: Save to Release
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "*.zip"
+          tags: true
