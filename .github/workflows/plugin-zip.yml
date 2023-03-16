@@ -8,9 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      BUILD_FOLDER: build
-
     steps:
 
       - name: Set Up PHP with WP-CLI
@@ -22,7 +19,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v2
         with:
-          path: ${{ env.BUILD_FOLDER }}
           ref: ${{ github.ref }}
 
       - name: Configure WP-CLI dist-archive-command
